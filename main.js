@@ -254,6 +254,7 @@ function renderFilter() {
     img.src = ele.imgSrc;
     img.alt = ele.name;
     img.classList.add("filterImg");
+    img.title = ele.name;
 
     label.appendChild(img);
     filterCard.appendChild(input);
