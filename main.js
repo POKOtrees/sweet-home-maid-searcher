@@ -1,4 +1,3 @@
-a
 let characters = [];
 const container = document.getElementById('panelContainer');
 const charPanel = document.getElementById("charPanel");
