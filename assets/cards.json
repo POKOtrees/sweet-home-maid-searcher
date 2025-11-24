@@ -590,7 +590,7 @@
     "rarity": 4,
     "color": "緑",
     "s_type": "ファスト",
-    "soon_flag": false,
+    "soon_flag": true,
     "ct": 0,
     "b_tag": [
       "ボム"
