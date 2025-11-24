@@ -256,6 +256,8 @@ def get_ability_tag(ability):
         return "貫通ロケット"
     if "リピートシェアスキルコスト" in ability:
         return "リピートシェアスキルコスト"
+    if "リピートシェアスキルクールタイム" in ability:
+        return "リピートシェアスキルクールタイム"
 
 def get_killer_tag(ability):
     plus_tag = list()
