@@ -113,12 +113,16 @@ const boosterFilter = [
 const plusFilter = [
   { id: "booster1", name: "+1", imgSrc: "assets/plus_filter/plus1.jpg" },
   { id: "booster2", name: "+2", imgSrc: "assets/plus_filter/plus2.jpg" },
+  { id: "booster3", name: "+2", imgSrc: "assets/plus_filter/plus3.jpg" },
   { id: "bom1", name: "ボム+1", imgSrc: "assets/plus_filter/bom_plus1.jpg" },
   { id: "bom2", name: "ボム+2", imgSrc: "assets/plus_filter/bom_plus2.jpg" },
+  { id: "bom3", name: "ボム+3", imgSrc: "assets/plus_filter/bom_plus3.jpg" },
   { id: "msl1", name: "ミサイル+1", imgSrc: "assets/plus_filter/msl_plus1.jpg" },
   { id: "msl2", name: "ミサイル+2", imgSrc: "assets/plus_filter/msl_plus2.jpg" },
+  { id: "msl3", name: "ミサイル+3", imgSrc: "assets/plus_filter/msl_plus3.jpg" },
   { id: "rocket1", name: "ロケット+1", imgSrc: "assets/plus_filter/rocket_plus1.jpg" },
   { id: "rocket2", name: "ロケット+2", imgSrc: "assets/plus_filter/rocket_plus2.jpg" },
+  { id: "rocket3", name: "ロケット+3", imgSrc: "assets/plus_filter/rocket_plus3.jpg" },
 ];
 const colorMap = {
   "赤": "696D67_70635F7265642E706E67.png",
