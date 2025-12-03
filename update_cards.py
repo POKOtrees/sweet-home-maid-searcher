@@ -197,10 +197,10 @@ def get_status(table, multiplier):
 def parse_ability(ability_tables):
     killer_target = ["キラー","サポート","なつき"]
 
-    multiple = int()
-    a_tag = list()
-    p_tag = list()
-    k_tag = list()
+    a_tag = []
+    p_tag = []
+    k_tag = []
+    multiple = 0
     for a_table in ability_tables:
         ability = a_table.find_all("th")[1].text
         if "デッキスコア" in ability: continue
@@ -208,16 +208,17 @@ def parse_ability(ability_tables):
         if re.fullmatch(r"スキルコスト\d+減少", ability): continue
 
         if "カードスコア" in ability:
-            match = re.search(r'(\d+)', ability)
-            multiple += int(match.group(1) if match else None)
+            # 倍率はwiki側で計算済みなので無視
+            continue
         elif any(x in ability for x in killer_target):
-            k,p= get_killer_tag(ability)
+            k, p = get_killer_tag(ability)
             k_tag.append(k)
-            p_tag = p_tag + p
+            p_tag += p
         else:
             a_tag.append(get_ability_tag(ability))
 
-    return a_tag,list(set(k_tag)),list(set(p_tag)),float(multiple/100)+1.02
+    # 倍率は常に 1.0 を返す（掛け算しても変わらない）
+    return a_tag, list(set(k_tag)), list(set(p_tag)), 1.0
 
 def get_ability_tag(ability):
     if "初期" in ability:
