@@ -179,7 +179,13 @@ def get_ct(anchors, name):
         print("Not exist ct tag:", name)
         return 3
     else:
-        return int(ret[0][-1])
+        # 数字だけを抽出
+        match = re.search(r'(\d+)', ret[0])
+        if match:
+            return int(match.group(1))
+        else:
+            print(f"[DEBUG] get_ct: 数字が見つからない -> {ret[0]} (card: {name})")
+            raise ValueError(f"Unexpected CT format: {ret[0]}")
 
 def get_status(table, multiplier):
     rows = table.find_all("tr")
@@ -262,19 +268,45 @@ def get_ability_tag(ability):
         return "リピートシェアスキルクールタイム"
 
 def get_killer_tag(ability):
-    plus_tag = list()
+    plus_tag = []
+
+    # 従来のフォーマット: キラー名＋数値（ブースター）
     match = re.search(r"(.+?)[＋+](\d+)[（(](.+?)[）)]", ability)
-    k_tag = match.group(1)
-    plus = match.group(2)
-    booster = match.group(3)
-    plus_tag.append("+"+plus)
-    if booster == "全ブースター":
-        plus_tag.append("ロケット+"+plus)
-        plus_tag.append("ミサイル+"+plus)
-        plus_tag.append("ボム+"+plus)
-    else:
-        plus_tag.append(booster+"+"+plus)
-    return k_tag,plus_tag
+    if match:
+        k_tag = match.group(1)
+        plus = match.group(2)
+        booster = match.group(3)
+        plus_tag.append("+"+plus)
+        if booster == "全ブースター":
+            plus_tag.append("ロケット+"+plus)
+            plus_tag.append("ミサイル+"+plus)
+            plus_tag.append("ボム+"+plus)
+        else:
+            plus_tag.append(booster+"+"+plus)
+        return k_tag, plus_tag
+
+    # 新フォーマット: アドキラー（数字ブースター数字ブースター…）
+    match2 = re.search(r"(.+?)（(.+?)）", ability)
+    if match2:
+        k_tag_raw = match2.group(1)   # 例: "氷アドキラー"
+        inside = match2.group(2)      # 例: "3ミサイル1ボム"
+
+        # 「アドキラー」で完全一致する場合のみ処理
+        if k_tag_raw.endswith("アドキラー"):
+            k_tag = k_tag_raw.replace("アドキラー", "キラー")
+            pairs = re.findall(r"(\d+)(\D+)", inside)
+            for num, booster in pairs:
+                plus_tag.append(f"{booster}+{num}")
+                plus_tag.append(f"+{num}")
+            return k_tag, plus_tag
+        else:
+            # アドキラー以外はエラー扱い
+            print(f"[DEBUG] get_killer_tag: アドキラー以外の新フォーマット -> {ability}")
+            raise ValueError(f"Unexpected ability format: {ability}")
+
+    # どちらにもマッチしなければエラー
+    print(f"[DEBUG] get_killer_tag: 正規表現にマッチしないアビリティ -> {ability}")
+    raise ValueError(f"Unexpected ability format: {ability}")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
