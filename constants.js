@@ -113,7 +113,7 @@ const boosterFilter = [
 const plusFilter = [
   { id: "booster1", name: "+1", imgSrc: "assets/plus_filter/plus1.jpg" },
   { id: "booster2", name: "+2", imgSrc: "assets/plus_filter/plus2.jpg" },
-  { id: "booster3", name: "+2", imgSrc: "assets/plus_filter/plus3.jpg" },
+  { id: "booster3", name: "+3", imgSrc: "assets/plus_filter/plus3.jpg" },
   { id: "bom1", name: "ボム+1", imgSrc: "assets/plus_filter/bom_plus1.jpg" },
   { id: "bom2", name: "ボム+2", imgSrc: "assets/plus_filter/bom_plus2.jpg" },
   { id: "bom3", name: "ボム+3", imgSrc: "assets/plus_filter/bom_plus3.jpg" },
