@@ -15,7 +15,7 @@ const filters = {
     killer: new Set(),
     plus: new Set(),
     soon: false,
-    sortAttributes: new Set()
+    sortAttributes: new Set(),
     boosterAnd: false   // ← 新しいフラグ
 };
 
@@ -154,7 +154,7 @@ function setupEventListeners() {
   const target = [
     "character",
     "skillType",
-    "booster",
+    // "booster", ← 共通からは外す
     "ability",
     "killer",
     "rarity",
@@ -227,6 +227,7 @@ function resetFilters() {
   filters.plus.clear();
   filters.sortAttributes.clear();
   filters.soon = false;
+  filters.boosterAnd = false; // ← 追加
   applyFilters();
 }
 
