@@ -109,6 +109,7 @@ const boosterFilter = [
   { id: "rocket", name: "ロケット", imgSrc: atcUrl+"696D67_625F726B562E706E67.png" },
   { id: "missile", name: "ミサイル", imgSrc: atcUrl+"696D67_625F6D736C2E706E67.png" },
   { id: "mix", name: "ミックス", imgSrc: "assets/mix.png" },
+  { id: "boosterAnd", name: "AND条件化", imgSrc: "assets/and.png" },
 ];
 const plusFilter = [
   { id: "booster1", name: "+1", imgSrc: "assets/plus_filter/plus1.jpg" },

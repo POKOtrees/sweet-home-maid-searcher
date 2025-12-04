@@ -16,6 +16,7 @@ const filters = {
     plus: new Set(),
     soon: false,
     sortAttributes: new Set()
+    boosterAnd: false   // ← 新しいフラグ
 };
 
 async function loadCharacters() {
@@ -102,7 +103,10 @@ function applyFilters() {
     const matchesSkillType = filters.skillType.size === 0 ||
        [...filters.skillType].some(tag => char.s_type === tag);
     const matchesBoosterTag = filters.booster.size === 0 ||
-       [...filters.booster].some(tag => char.b_tag.includes(tag));
+       (filters.boosterAnd
+         ? [...filters.booster].every(tag => char.b_tag.includes(tag)) // AND条件
+         : [...filters.booster].some(tag => char.b_tag.includes(tag))  // OR条件
+       );
     const matchesAbilityTag = filters.ability.size === 0 ||
        [...filters.ability].some(tag => char.a_tag.includes(tag));
     const matchesKillerTag = filters.killer.size === 0 ||
@@ -158,6 +162,19 @@ function setupEventListeners() {
     "plus",
     "ct",
   ];
+  
+  // boosterだけ特別処理
+  document.querySelectorAll(".boosterCB").forEach(checkbox => {
+    checkbox.addEventListener("change", (e) => {
+      if (e.target.value === "AND条件化") {
+        filters.boosterAnd = e.target.checked;
+      } else {
+        toggleFilter("booster", e.target.value);
+      }
+      applyFilters();
+    });
+  });
+
   target.forEach(filter_target => {
     document.querySelectorAll("."+filter_target+"CB").forEach(checkbox => {
         checkbox.addEventListener("change", (e) => {
